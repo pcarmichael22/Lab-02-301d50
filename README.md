@@ -36,3 +36,15 @@ Finish time: 10:29
 
 Actual time needed to complete: 36:00 - 10:00 break, 26:00
 
+<!-- ------------------------------------------- -->
+
+Number and name of feature: dropdown menu
+
+Estimate of time needed to complete: 60:00
+
+Start time: 10:39
+
+Finish time: 
+
+Actual time needed to complete:
+

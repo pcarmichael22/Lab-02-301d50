@@ -39,4 +39,38 @@ $.get('data/page-1.json').then(data => {
     imageData.forEach(image => {
         image.renderWithJquery();
     })
+    renderDropdown();
 });
+
+//found @ https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json
+
+
+let renderDropdown = function() {
+
+    let dropdown = $('select');
+
+    dropdown.empty();
+    dropdown.append('<option selected="true" disabled>Filter by Keyword</option>');
+
+    dropdown.prop('selectedIndex', 0);
+
+    // Populate dropdown with list of provinces
+    imageData.forEach(image => {
+        dropdown.append($('<option></option>').attr('value', image.keyword).text(image.keyword));
+    })
+};
+// let dropdown = $('#locality-dropdown');
+
+// dropdown.empty();
+
+// dropdown.append('<option selected="true" disabled>Choose State/Province</option>');
+// dropdown.prop('selectedIndex', 0);
+
+// const url = 'https://api.myjson.com/bins/7xq2x';
+
+// // Populate dropdown with list of provinces
+// $.getJSON(url, function (data) {
+//   $.each(data, function (key, entry) {
+//     dropdown.append($('<option></option>').attr('value', entry.abbreviation).text(entry.name));
+//   })
+// });
