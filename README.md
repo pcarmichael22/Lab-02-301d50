@@ -32,6 +32,7 @@ Estimate of time needed to complete: 45
 
 Start time: 9:53
 
-Finish time: 
+Finish time: 10:29
 
-Actual time needed to complete: 
+Actual time needed to complete: 36:00 - 10:00 break, 26:00
+

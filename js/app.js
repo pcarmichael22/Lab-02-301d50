@@ -9,12 +9,22 @@ const Image = function(img, title, desc, keyword, horns) {
     this.keyword = keyword;
     this.horns = horns;
     imageData.push(this);
-}
+};
 
 Image.prototype.renderWithJquery = function() {
     const $myTemplateHtml = $('#photo-template').html();
 
-}
+    const $newSection = $('<section></section>');
+
+    $newSection.html($myTemplateHtml);
+
+    $newSection.find('h2').text(this.title);
+    $newSection.find('img').attr('src', this.img);
+    $newSection.find('p').text(this.desc);
+
+    $('main').append($newSection);
+
+};
 
 $.get('data/page-1.json').then(data => {
     data.forEach(eachImage => {
@@ -24,6 +34,9 @@ $.get('data/page-1.json').then(data => {
             eachImage.description,
             eachImage.keyword,
             eachImage.horns);
+
     });
-    imageData[0].renderWithJquery();
+    imageData.forEach(image => {
+        image.renderWithJquery();
+    })
 });
