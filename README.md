@@ -44,7 +44,22 @@ Estimate of time needed to complete: 60:00
 
 Start time: 10:39
 
-Finish time: 
+Finish time: 11:29
+
+Actual time needed to complete: 50:00
+
+<!-- ------------------------------------------- -->
+
+Number and name of feature: Rendering objects, based on dropdown input
+
+Estimate of time needed to complete: 60:00
+
+Start time: 11:30
+
+Finish time:
 
 Actual time needed to complete:
+
+
+
 

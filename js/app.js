@@ -1,6 +1,7 @@
 'use strict'
 
 const imageData = [];
+let uniqueElements = [];
 
 const Image = function(img, title, desc, keyword, horns) {
     this.img = img;
@@ -48,7 +49,7 @@ $.get('data/page-1.json').then(data => {
 let renderDropdown = function() {
 
     // Create new empty array, to fill with only 1 copy of each unique element
-    let uniqueElements = [];
+
     let dropdown = $('select');
 
     dropdown.empty();
@@ -77,3 +78,29 @@ let renderDropdown = function() {
         }
     })
 };
+
+
+// function test() {
+//     console.log('click');
+// }
+
+// $('select option:selected').change('click', test);
+// let test = $('select option:selected').val();
+
+$(function() {
+    let optionItems = $('select');
+    optionItems.on('click', function() {
+        console.log('you clicked ' + this.value)
+
+        // let userClicked = this.value;
+        let userClicked = '';
+
+        for (let i = 0; i < uniqueElements.length; i++) {
+            if (this.value === uniqueElements[i]) {
+                userClicked = uniqueElements[i];
+            }
+        }
+        console.log(userClicked);
+
+    })
+})
