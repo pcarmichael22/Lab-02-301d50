@@ -47,6 +47,8 @@ $.get('data/page-1.json').then(data => {
 
 let renderDropdown = function() {
 
+    // Create new empty array, to fill with only 1 copy of each unique element
+    let uniqueElements = [];
     let dropdown = $('select');
 
     dropdown.empty();
@@ -55,22 +57,23 @@ let renderDropdown = function() {
     dropdown.prop('selectedIndex', 0);
 
     // Populate dropdown with list of provinces
+
     imageData.forEach(image => {
-        dropdown.append($('<option></option>').attr('value', image.keyword).text(image.keyword));
+
+        // This is the test for determining wether the element is unique, before passing into the uniqueElements array.
+        let uniqueFlag = true;
+
+        // This passes over the new array, and lets us check if the keyword is already in the array, if it is, that changes the flag, and prevents appending to the dropdown.
+        uniqueElements.forEach(uniqueImage => {
+            if (image.keyword === uniqueImage) {
+                uniqueFlag = false;
+            }
+        })
+
+        // This lets us append the element if the uniqueFlag variable is true, allowing us to only populate the dropdown with unique elements.
+        if (uniqueFlag) {
+            dropdown.append($('<option></option>').attr('value', image.keyword).text(image.keyword));
+            uniqueElements.push(image.keyword);
+        }
     })
 };
-// let dropdown = $('#locality-dropdown');
-
-// dropdown.empty();
-
-// dropdown.append('<option selected="true" disabled>Choose State/Province</option>');
-// dropdown.prop('selectedIndex', 0);
-
-// const url = 'https://api.myjson.com/bins/7xq2x';
-
-// // Populate dropdown with list of provinces
-// $.getJSON(url, function (data) {
-//   $.each(data, function (key, entry) {
-//     dropdown.append($('<option></option>').attr('value', entry.abbreviation).text(entry.name));
-//   })
-// });
