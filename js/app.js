@@ -1,6 +1,6 @@
 'use strict'
 
-const imageData = [];
+let imageData = [];
 let uniqueElements = [];
 
 const Image = function(img, title, desc, keyword, horns) {
@@ -21,28 +21,32 @@ Image.prototype.renderWithHandlebars = function() {
     const imageHtml = renderImageWithHandlebars(this);
     $('main').append(imageHtml);
 }
+let makePage = function(pageURL) {
+    imageData = [];
+    $(`main`).html('');
+    $.get(pageURL).then(data => {
+        data.forEach(eachImage => {
+            new Image(
+                eachImage.image_url,
+                eachImage.title,
+                eachImage.description,
+                eachImage.keyword,
+                eachImage.horns);
+        });
+        console.log(imageData);
 
-$.get('data/page-1.json').then(data => {
-    data.forEach(eachImage => {
-        new Image(
-            eachImage.image_url,
-            eachImage.title,
-            eachImage.description,
-            eachImage.keyword,
-            eachImage.horns);
+        imageData.forEach(image => {
+            image.renderWithHandlebars();
+        })
+        renderDropdown();
     });
-    console.log(imageData);
-
-    imageData.forEach(image => {
-        image.renderWithHandlebars();
-    })
-    renderDropdown();
-});
+}
 
 //found @ https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json
 
 
 let renderDropdown = function() {
+    uniqueElements = [];
 
     // Create new empty array, to fill with only 1 copy of each unique element
 
@@ -81,5 +85,16 @@ $('#drop-down').on('change', function() {
     $('section').hide();
     const keyword = $('#drop-down option:selected').text();
     $(`img[alt=${keyword}]`).parent().show();
-
 })
+
+$('#page1').on('click', function() {
+    makePage('data/page-1.json');
+    renderDropdown();
+})
+
+$('#page2').on('click', function() {
+    makePage('data/page-2.json');
+    renderDropdown();
+})
+
+makePage('data/page-1.json');
