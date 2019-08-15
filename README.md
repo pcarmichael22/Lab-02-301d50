@@ -60,6 +60,56 @@ Finish time:
 
 Actual time needed to complete:
 
+<!-- ------------------------------------------- -->
+
+Number and name of feature: handlebars
+
+Estimate of time needed to complete: 30:00
+
+Start time: 9:00
+
+Finish time: 10:30
+
+Actual time needed to complete: 90:00
+
+
+<!-- ------------------------------------------- -->
+
+Number and name of feature: pagination
+
+Estimate of time needed to complete: 30:00
+
+Start time: 10:38
+
+Finish time: 10:57
+
+Actual time needed to complete: 19:00
+
+<!-- ------------------------------------------- -->
+
+Number and name of feature: FLEXBOX
+
+Estimate of time needed to complete: 120:00
+
+Start time: 10:58
+
+Finish time: 11:21
+
+Actual time needed to complete:  23:00
+
+<!-- ------------------------------------------- -->
+
+Number and name of feature: Sorting Images
+
+Estimate of time needed to complete: 38:00
+
+Start time: 11:22
+
+Finish time: 
+
+Actual time needed to complete: 
+
+
 
 
 

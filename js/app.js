@@ -1,6 +1,6 @@
 'use strict'
 
-const imageData = [];
+let imageData = [];
 let uniqueElements = [];
 
 const Image = function(img, title, desc, keyword, horns) {
@@ -12,53 +12,54 @@ const Image = function(img, title, desc, keyword, horns) {
     imageData.push(this);
 };
 
-Image.prototype.renderWithJquery = function() {
-    const $myTemplateHtml = $('#photo-template').html();
+Image.prototype.renderWithHandlebars = function() {
+    // console.log('here');
+    let $myTemplateHtml = $('#entry-template').html();
+    // console.log($myTemplateHtml)
+    const renderImageWithHandlebars = Handlebars.compile($myTemplateHtml);
+    // console.log(renderImageWithHandlebars)
+    const imageHtml = renderImageWithHandlebars(this);
+    $('main').append(imageHtml);
+}
+let makePage = function(pageURL) {
+    imageData = [];
+    $(`main`).html('');
+    $.get(pageURL).then(data => {
+        data.forEach(eachImage => {
+            new Image(
+                eachImage.image_url,
+                eachImage.title,
+                eachImage.description,
+                eachImage.keyword,
+                eachImage.horns);
+        });
+        console.log(imageData);
 
-    const $newSection = $('<section></section>');
-
-    $newSection.html($myTemplateHtml);
-
-    $newSection.find('h2').text(this.title);
-    $newSection.find('img').attr('src', this.img);
-    $newSection.find('img').attr('alt', this.keyword);
-    $newSection.find('p').text(this.desc);
-
-    $('main').append($newSection);
-
-};
-
-$.get('data/page-1.json').then(data => {
-    data.forEach(eachImage => {
-        new Image(
-            eachImage.image_url,
-            eachImage.title,
-            eachImage.description,
-            eachImage.keyword,
-            eachImage.horns);
-
+        imageData.forEach(image => {
+            image.renderWithHandlebars();
+        })
+        renderDropdown();
     });
-    imageData.forEach(image => {
-        image.renderWithJquery();
-    })
-    renderDropdown();
-});
+}
 
 //found @ https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json
 
 
 let renderDropdown = function() {
+    uniqueElements = [];
 
     // Create new empty array, to fill with only 1 copy of each unique element
 
-    let dropdown = $('select');
+    let dropdown = $('#drop-down');
 
     dropdown.empty();
     dropdown.append('<option selected="true" disabled>Filter by Keyword</option>');
 
     dropdown.prop('selectedIndex', 0);
 
-    // Populate dropdown with list of provinces
+    // consider using js Set for unique list
+    // consider using js filter
+    // consider using js indexOf
 
     imageData.forEach(image => {
 
@@ -83,7 +84,39 @@ let renderDropdown = function() {
 $('#drop-down').on('change', function() {
     $('section').hide();
     const keyword = $('#drop-down option:selected').text();
-    console.log(keyword);
-    // let renderDivsWithKeyword = $(`[alt=${keyword}]`).parent().show();
     $(`img[alt=${keyword}]`).parent().show();
 })
+
+$('#page1').on('click', function() {
+    makePage('data/page-1.json');
+    renderDropdown();
+})
+
+$('#page2').on('click', function() {
+    makePage('data/page-2.json');
+    renderDropdown();
+})
+
+$('#sortDropDown').on('change', function() {
+    console.log($('#sortDropDown option:selected').val());
+    let selection = $('#sortDropDown option:selected').val();
+    if (selection === 'title') {
+        imageData.sort(function(a, b) {
+            if (a.title < b.title) { return -1; }
+            if (a.title > b.title) { return 1; }
+        });
+
+    } else if (selection === 'horns') {
+        imageData.sort(function(a, b) {
+            if (a.horns < b.horns) { return -1; }
+            if (a.horns > b.horns) { return 1; }
+        });
+    }
+    $(`main`).html('');
+    imageData.forEach(image => {
+        image.renderWithHandlebars();
+    })
+})
+
+
+makePage('data/page-1.json');
