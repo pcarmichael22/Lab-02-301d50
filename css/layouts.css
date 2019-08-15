@@ -1,7 +1,17 @@
+body {
+    width: 1200px;
+}
+
 img {
     width: 200px;
 }
 
 p {
     width: 200px;
+}
+
+section {
+    float: left;
+    height: 260px;
+    border: 1px solid black;
 }
