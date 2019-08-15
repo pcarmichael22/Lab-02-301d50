@@ -93,6 +93,18 @@ Estimate of time needed to complete: 120:00
 
 Start time: 10:58
 
+Finish time: 11:21
+
+Actual time needed to complete:  23:00
+
+<!-- ------------------------------------------- -->
+
+Number and name of feature: Sorting Images
+
+Estimate of time needed to complete: 38:00
+
+Start time: 11:22
+
 Finish time: 
 
 Actual time needed to complete: 

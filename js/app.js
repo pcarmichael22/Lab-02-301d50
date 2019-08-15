@@ -50,7 +50,7 @@ let renderDropdown = function() {
 
     // Create new empty array, to fill with only 1 copy of each unique element
 
-    let dropdown = $('select');
+    let dropdown = $('#drop-down');
 
     dropdown.empty();
     dropdown.append('<option selected="true" disabled>Filter by Keyword</option>');
@@ -96,5 +96,27 @@ $('#page2').on('click', function() {
     makePage('data/page-2.json');
     renderDropdown();
 })
+
+$('#sortDropDown').on('change', function() {
+    console.log($('#sortDropDown option:selected').val());
+    let selection = $('#sortDropDown option:selected').val();
+    if (selection === 'title') {
+        imageData.sort(function(a, b) {
+            if (a.title < b.title) { return -1; }
+            if (a.title > b.title) { return 1; }
+        });
+
+    } else if (selection === 'horns') {
+        imageData.sort(function(a, b) {
+            if (a.horns < b.horns) { return -1; }
+            if (a.horns > b.horns) { return 1; }
+        });
+    }
+    $(`main`).html('');
+    imageData.forEach(image => {
+        image.renderWithHandlebars();
+    })
+})
+
 
 makePage('data/page-1.json');
