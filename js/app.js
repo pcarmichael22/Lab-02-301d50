@@ -12,21 +12,15 @@ const Image = function(img, title, desc, keyword, horns) {
     imageData.push(this);
 };
 
-Image.prototype.renderWithJquery = function() {
-    const $myTemplateHtml = $('#photo-template').html();
-
-    const $newSection = $('<section></section>');
-
-    $newSection.html($myTemplateHtml);
-
-    $newSection.find('h2').text(this.title);
-    $newSection.find('img').attr('src', this.img);
-    $newSection.find('img').attr('alt', this.keyword);
-    $newSection.find('p').text(this.desc);
-
-    $('main').append($newSection);
-
-};
+Image.prototype.renderWithHandlebars = function() {
+    // console.log('here');
+    let $myTemplateHtml = $('#entry-template').html();
+    // console.log($myTemplateHtml)
+    const renderImageWithHandlebars = Handlebars.compile($myTemplateHtml);
+    // console.log(renderImageWithHandlebars)
+    const imageHtml = renderImageWithHandlebars(this);
+    $('main').append(imageHtml);
+}
 
 $.get('data/page-1.json').then(data => {
     data.forEach(eachImage => {
@@ -36,10 +30,11 @@ $.get('data/page-1.json').then(data => {
             eachImage.description,
             eachImage.keyword,
             eachImage.horns);
-
     });
+    console.log(imageData);
+
     imageData.forEach(image => {
-        image.renderWithJquery();
+        image.renderWithHandlebars();
     })
     renderDropdown();
 });
@@ -58,7 +53,9 @@ let renderDropdown = function() {
 
     dropdown.prop('selectedIndex', 0);
 
-    // Populate dropdown with list of provinces
+    // consider using js Set for unique list
+    // consider using js filter
+    // consider using js indexOf
 
     imageData.forEach(image => {
 
@@ -83,7 +80,6 @@ let renderDropdown = function() {
 $('#drop-down').on('change', function() {
     $('section').hide();
     const keyword = $('#drop-down option:selected').text();
-    console.log(keyword);
-    // let renderDivsWithKeyword = $(`[alt=${keyword}]`).parent().show();
     $(`img[alt=${keyword}]`).parent().show();
+
 })
