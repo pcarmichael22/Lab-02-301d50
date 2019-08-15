@@ -21,6 +21,7 @@ Image.prototype.renderWithJquery = function() {
 
     $newSection.find('h2').text(this.title);
     $newSection.find('img').attr('src', this.img);
+    $newSection.find('img').attr('alt', this.keyword);
     $newSection.find('p').text(this.desc);
 
     $('main').append($newSection);
@@ -79,28 +80,10 @@ let renderDropdown = function() {
     })
 };
 
-
-// function test() {
-//     console.log('click');
-// }
-
-// $('select option:selected').change('click', test);
-// let test = $('select option:selected').val();
-
-$(function() {
-    let optionItems = $('select');
-    optionItems.on('click', function() {
-        console.log('you clicked ' + this.value)
-
-        // let userClicked = this.value;
-        let userClicked = '';
-
-        for (let i = 0; i < uniqueElements.length; i++) {
-            if (this.value === uniqueElements[i]) {
-                userClicked = uniqueElements[i];
-            }
-        }
-        console.log(userClicked);
-
-    })
+$('#drop-down').on('change', function() {
+    $('section').hide();
+    const keyword = $('#drop-down option:selected').text();
+    console.log(keyword);
+    // let renderDivsWithKeyword = $(`[alt=${keyword}]`).parent().show();
+    $(`img[alt=${keyword}]`).parent().show();
 })
